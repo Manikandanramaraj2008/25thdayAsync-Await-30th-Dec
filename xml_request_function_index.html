@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+    // set up on HTTP request
+
+var xhr = new XMLHttpRequest();
+//  create and send Get request
+// GET,POST,PUT,DELETE
+// second=> endpoint of the url: server url
+xhr.open('GET','https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json');
+// set up listener to process the request
+xhr.onload =function(){
+// process the request and server will return the data
+if(xhr.status>=50 && xhr.status<=100){
+var t =JSON.parse(this.response);
+console.log(t);
+console.log(this.response)
+
+}else{
+    console.log("data is not available");
+     document.write(t)
+}
+    
+};
+
+
+
+    </script>
+</body>
+</html>

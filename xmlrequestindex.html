@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+// step:1 create XHR object constructor
+var req =new XMLHttpRequest();
+// step:2 open a connection
+req.open('GET','https://restcountries.com/v2/all',true);
+// step:3 initiate a connection
+req.send();
+// step:4 once the data loaded from the server succeffully
+
+req.onload= function(){
+     //here we are converting 
+     var result =JSON.parse(req.response);
+     console.log(result);
+     for(var i=0;i<=result.length;i++){
+        try {
+            var name=result[i].name;
+            var latlon =result[i].latlng;
+        if(latlon.length===0)throw new error("invalid coordinates for the country");
+        weatherdata(name,...latlon);
+        
+        }catch(error)
+        {
+            console.log("invalid country"+name+error. message)
+        }
+        // console.log(`${name}:${latlon}`);
+     }
+
+}
+
+function weatherdata(name,lat,lon){
+
+    var url=`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1308e20fe6369b5f0c6c9906f2a32773&units=imperial`;
+    var req = new XMLHttpRequest();
+    req.open('GET',url,true);
+    req.send();
+    req.onload=function(){
+        var data = JSON.parse(req.response);
+        // console.log(data);
+        console.log(`${name}:${data.main.temp}`);
+
+    }
+} 
+
+
+    </script>
+</body>
+</html>
