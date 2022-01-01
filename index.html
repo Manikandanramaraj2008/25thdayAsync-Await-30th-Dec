@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        async function getdata(){
+            
+                let res = await fetch("https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json");
+                let result = await res.json();
+                console.log(result);
+                try{for(var i in result){
+                    var name =result[i].name;
+                    var latlon=result[i].latlng;
+                    wd(name,...latlon);
+            if(latlon.length===0)throw new error("invalid coordinates for the country")
+
+                }
+
+            }catch(error){
+                console.log("invalid countries"+name+error.message);
+            }
+        }
+
+        async function wd(name,lat,lon){
+            try{
+            if(lat===undefined)throw new error("invalid coordinates");
+            let res1 = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=1308e20fe6369b5f0c6c9906f2a32773&units=imperial`);
+            let result1=await res1.json();
+            // console.log(result1);
+            console.log(`${name}:${result1.main.temp}`);
+
+
+            }catch(error){
+                console.log("lost data" + error.message)
+            }
+        }
+        getdata();
+
+
+    </script>
+    
+</body>
+</html>
